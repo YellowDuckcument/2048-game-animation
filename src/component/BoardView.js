@@ -63,7 +63,6 @@ const BoardView = () => {
           board={board}
         />
       </div>
-      {JSON.stringify(board.hasLost())}
     </>
   )
 };
