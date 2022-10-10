@@ -25,7 +25,66 @@ const BoardView = () => {
   }
 
   useEvent('keydown', handleKeyDown)
+  
+    // XỬ lý khi vuốt màn hình
+  const [touchPositionX, setTouchPositionX] = useState(null)
+  const [touchPositionY, setTouchPositionY] = useState(null)
 
+  const handleTouchStart = (e) => {
+    const touchDownX = e.touches[0].clientX
+    setTouchPositionX(touchDownX)
+
+    const touchDownY = e.touches[0].clientY
+    setTouchPositionY(touchDownY)
+  }
+
+
+  // Hàm xử lý
+  const handleTouchMove = (e) => {
+    let boardClone = Object.assign(
+      Object.create(Object.getPrototypeOf(board)),
+      board
+    );
+    let direction;
+
+    const touchDownX = touchPositionX
+    const touchDownY = touchPositionY
+
+    if (touchDownX === null && touchDownY === null) {
+      return
+    }
+
+    const currentTouchX = e.touches[0].clientX
+    const diffX = - touchDownX + currentTouchX
+
+    const currentTouchY = e.touches[0].clientY
+    const diffY = touchDownY - currentTouchY
+
+    if (diffX > 10) {
+      direction = 2;
+    }
+
+    if (diffX < -10) {
+      direction = 0;
+    }
+
+    if (diffY > 10) {
+      direction = 1;
+    }
+
+    if (diffY < -10) {
+      direction = 3;
+    }
+
+    let newBoard = boardClone.move(direction);
+      setBoard(newBoard)
+
+    setTouchPositionX(null)
+    setTouchPositionY(null)
+  }
+
+  
+// In ra boardGame
   const cells = board.cells.map((row, rowindex) => {
     return (
       <div key={rowindex}>
