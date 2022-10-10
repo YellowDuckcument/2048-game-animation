@@ -106,10 +106,7 @@ const BoardView = () => {
   }
 
   return (
-    <div
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-    >
+    <div>
       <div className='details-box'>
         <div className='resetButton' onClick={resetGame}>New Game</div>
         <div>
@@ -117,7 +114,10 @@ const BoardView = () => {
           <div className='score-box'>{board.score}</div>
         </div>
       </div>
-      <div className='board'>
+      <div className='board' 
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+      >
         {cells}
         {tiles}
         <GameOverlay 
