@@ -106,7 +106,10 @@ const BoardView = () => {
   }
 
   return (
-    <>
+    <div
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+    >
       <div className='details-box'>
         <div className='resetButton' onClick={resetGame}>New Game</div>
         <div>
@@ -122,7 +125,7 @@ const BoardView = () => {
           board={board}
         />
       </div>
-    </>
+    </div>
   )
 };
 
